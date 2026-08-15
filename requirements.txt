@@ -1,0 +1,20 @@
+# Core dependencies. Install Paddle/PaddleOCR separately if your CUDA setup requires a specific wheel.
+# Example: pip install "paddleocr[doc-parser]>=3.6.0"
+datasets>=3.0.0
+huggingface_hub>=0.25.0
+hf_transfer>=0.1.8
+pandas>=2.2.0
+numpy>=1.26.0
+pillow>=10.0.0
+opencv-python>=4.9.0
+rapidfuzz>=3.9.0
+jiwer>=3.0.0
+scikit-learn>=1.5.0
+matplotlib>=3.8.0
+pyyaml>=6.0.0
+tqdm>=4.66.0
+rich>=13.7.0
+wandb>=0.17.0
+torch>=2.3.0
+transformers>=4.56.0
+safetensors>=0.5.0

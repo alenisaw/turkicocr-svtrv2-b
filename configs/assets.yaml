@@ -1,0 +1,99 @@
+asset_root: ./assets
+
+cache:
+  hf_home: ./assets/huggingface
+  pip_cache_dir: ./assets/pip-cache
+  tmp_dir: ./assets/tmp
+  status_file: ./assets/outputs/assets/asset_status.json
+  max_parallel_downloads: 8
+  min_free_gb_for_full_download: 250
+  note: "Large assets stay outside git. Reuse existing files and write status instead of redownloading."
+
+openocr:
+  repo_dir: ./assets/openocr/repo
+  config_dir: ./assets/openocr/configs
+  pretrained_dir: ./assets/openocr/pretrained
+  output_dir: ./assets/openocr/outputs
+  base_recognizer:
+    id: OpenOCR/SVTRv2-B
+    display_name: SVTRv2-B / OpenOCR
+    role: main_parent_recognizer
+    local_dir: ./assets/models/OpenOCR/SVTRv2-B
+    required_for: ["training", "evaluation", "export"]
+
+dataset:
+  id: alenisaw/turkicocr-cyrillic
+  repo_type: dataset
+  config: large
+  required_for: training
+  local_dir: ./assets/datasets/alenisaw/turkicocr-cyrillic
+
+recognition_outputs:
+  root: ./assets/outputs/recognition
+  images_dir: ./assets/outputs/recognition/images
+  manifests_dir: ./assets/outputs/recognition/manifests
+  predictions_dir: ./assets/outputs/recognition/predictions
+  metrics_dir: ./assets/outputs/recognition/metrics
+  diagnostics_dir: ./assets/outputs/recognition/diagnostics
+  error_analysis_dir: ./assets/outputs/recognition/error_analysis
+  plots_dir: ./assets/outputs/recognition/plots
+  tables_dir: ./assets/outputs/recognition/tables
+  charset_path: ./assets/outputs/recognition/charset_turkic_cyrillic.txt
+  metadata_path: ./assets/outputs/recognition/metadata.parquet
+
+checkpoints:
+  base_recognizer: ./assets/checkpoints/turkicocr_svtrv2_b_rec
+  hardcase_v1: ./assets/checkpoints/turkicocr_svtrv2_b_rec_hardcase_v1
+
+variants:
+  onnx: ./assets/variants/onnx
+  int8: ./assets/variants/int8
+  mobile: ./assets/variants/mobile
+
+publish:
+  hf_model: ./assets/publish/hf_model
+  hf_onnx: ./assets/publish/hf_onnx
+  hf_int8: ./assets/publish/hf_int8
+  drive_package: ./assets/publish/drive_package
+
+models:
+  - id: OpenOCR/SVTRv2-B
+    role: main_parent_recognizer
+    display_name: SVTRv2-B / OpenOCR
+    required_for: ["training", "evaluation", "export"]
+    local_dir: ./assets/models/OpenOCR/SVTRv2-B
+  - id: ppocr
+    role: classical_pipeline
+    display_name: PP-OCR / PaddleOCR pipeline
+    source: paddleocr package
+    required_for: ["baseline"]
+  - id: tesseract_kaz_rus_kir
+    role: classical_open_source_ocr
+    display_name: Tesseract OCR with kaz/rus/kir traineddata
+    source: system package + traineddata
+    required_for: ["baseline"]
+  - id: thekamilya/kazakh-trocr-fine-tuned
+    role: kazakh_specific_ft_ocr
+    display_name: Kazakh TrOCR fine-tuned
+    required_for: ["baseline"]
+    local_dir: ./assets/models/thekamilya/kazakh-trocr-fine-tuned
+  - id: kazars24/trocr-base-handwritten-ru
+    role: cyrillic_trocr_baseline
+    display_name: Russian/Cyrillic TrOCR
+    required_for: ["baseline"]
+    local_dir: ./assets/models/kazars24/trocr-base-handwritten-ru
+  - id: Kansallisarkisto/cyrillic-htr-model
+    role: cyrillic_htr_baseline
+    display_name: Cyrillic HTR model
+    required_for: ["secondary_baseline"]
+    local_dir: ./assets/models/Kansallisarkisto/cyrillic-htr-model
+
+external_benchmarks:
+  - id: henrygagnier/kazakh-ocr
+    repo_type: dataset
+    use: KazakhOCR Cyrillic subset
+    local_dir: ./assets/datasets/henrygagnier/kazakh-ocr
+  - id: alenisaw/turkicocr-cyrillic
+    repo_type: dataset
+    use: synthetic page validation subset
+    local_dir: ./assets/datasets/alenisaw/turkicocr-cyrillic

@@ -1,0 +1,61 @@
+# Hardware/environment audit snapshot. `${REPO_ROOT}` is resolved at runtime
+# (see scripts/run_reproduce.sh); it is not a literal path to fill in by hand.
+server:
+  detected_on: "2026-07-03"
+  python: "3.10.12"
+  cpu:
+    model: "Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz"
+    sockets: 2
+    cores_per_socket: 24
+    threads_per_core: 2
+    logical_cpus: 96
+    numa_nodes: 2
+  memory:
+    total_gib: 187
+  disk:
+    preferred_asset_root: ./assets
+    note: "Keep large OpenOCR, dataset, checkpoint, prediction, and export artifacts outside git."
+  gpu:
+    devices:
+      - "NVIDIA L4, bus 0000:1a:00.0, uuid GPU-ea567b7b-8742-99d0-f5d9-dbbfe521ed57"
+      - "NVIDIA L4, bus 0000:1b:00.0, uuid GPU-b6ad48bd-bf5e-544d-f253-9efa198668c8"
+      - "NVIDIA L4, bus 0000:3d:00.0, uuid GPU-996174ec-5c1c-5765-4f55-e876b9d5090e"
+      - "NVIDIA L4, bus 0000:3e:00.0, uuid GPU-608bdeb4-20b4-1924-7501-112b3000b462"
+    loaded_kernel_module_version: "570.211.01"
+    installed_user_space_nvml_version: "580.159.03"
+    current_status: "nvidia-smi may fail because loaded kernel module and user-space NVML versions differ"
+    training_allowed: true
+    cuda_compute_status: "PyTorch CUDA smoke test passed on 4 NVIDIA L4 GPUs; use CUDA checks instead of relying only on NVML."
+    cuda_visible_devices: "0,1,2,3"
+
+parallelism:
+  openocr_distributed: true
+  dataloader_num_workers: 16
+  preprocessing_num_proc: 32
+  hf_download_workers_metadata: 8
+  hf_download_workers_full: 16
+  omp_num_threads: 12
+  mkl_num_threads: 12
+  notes:
+    - "Prefer stable OpenOCR multi-GPU settings before increasing batch size."
+    - "Keep enough CPU headroom for image decode, dataloading, metric decoding, and logging."
+    - "Do not touch drivers or system GPU processes without explicit approval."
+
+environment:
+  PYTHONPATH: ${REPO_ROOT}
+  TMPDIR: ./assets/tmp
+  PIP_CACHE_DIR: ./assets/pip-cache
+  HF_HOME: ./assets/huggingface
+  CUDA_VISIBLE_DEVICES: "0,1,2,3"
+  OMP_NUM_THREADS: "12"
+  MKL_NUM_THREADS: "12"
+
+paths:
+  repo: ${REPO_ROOT}
+  asset_root: ./assets
+  openocr_repo: ./assets/openocr/repo
+  training_venv: ./assets/venv-rec
+  local_models: ./assets/models
+  local_datasets: ./assets/datasets
+  outputs: ./assets/outputs
+  checkpoints: ./assets/checkpoints

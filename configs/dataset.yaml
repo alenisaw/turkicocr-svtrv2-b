@@ -1,0 +1,69 @@
+dataset:
+  hf_id: alenisaw/turkicocr-cyrillic
+  config: large
+  cache_dir: ./assets/huggingface
+  local_dir: ./assets/datasets/alenisaw/turkicocr-cyrillic
+  preprocessing_num_proc: 32
+  splits:
+    train: train
+    validation: validation
+    test: test
+  expected_page_counts:
+    train: 90000
+    validation: 5000
+    test: 5000
+  dimensions:
+    languages: ["kazakh", "kyrgyz", "russian", "ru_kz_mixed", "ru_ky_mixed"]
+    layout_types: ["administrative", "forms", "books_prose", "educational", "tables_transactional"]
+    degradation_profiles: ["clean", "low_dpi_scan", "office_scan", "official_stamped", "old_paper", "phone_photo", "photocopy"]
+    crop_types: ["line", "zone", "table_cell", "field"]
+
+recognition_export:
+  output_root: ./assets/outputs/recognition
+  images_dir: ./assets/outputs/recognition/images
+  manifests_dir: ./assets/outputs/recognition/manifests
+  charset_out: ./assets/outputs/recognition/charset_turkic_cyrillic.txt
+  metadata_out: ./assets/outputs/recognition/metadata.parquet
+  include_crop_types: ["line", "zone", "table_cell", "field"]
+  seed: 42
+  shard_size_rows: 25000
+  flush_every_rows: 1000
+  resume: true
+  overwrite_existing_crops: false
+  keep_raw_dataset_outside_git: true
+  min_free_gb_before_large_export: 50
+  jsonl_manifests:
+    train: ./assets/outputs/recognition/manifests/train_rec_large.jsonl
+    validation: ./assets/outputs/recognition/manifests/val_rec_large.jsonl
+    test: ./assets/outputs/recognition/manifests/test_rec_large.jsonl
+  openocr_manifests:
+    train: ./assets/outputs/recognition/manifests/train_openocr.txt
+    validation: ./assets/outputs/recognition/manifests/val_openocr.txt
+    test: ./assets/outputs/recognition/manifests/test_openocr.txt
+
+diagnostics:
+  source_manifest: ./assets/outputs/recognition/manifests/val_rec_large.jsonl
+  output_dir: ./assets/outputs/recognition/manifests
+  seed: 42
+  smoke_size: 256
+  diagnostic_size: 256
+  full_size: 5000
+  files:
+    smoke: ./assets/outputs/recognition/manifests/diagnostic_rec_smoke.jsonl
+    diagnostic: ./assets/outputs/recognition/manifests/diagnostic_rec_256.jsonl
+    full: ./assets/outputs/recognition/manifests/diagnostic_rec_full.jsonl
+  require_coverage:
+    languages: true
+    degradation_profiles: true
+    crop_types: true
+    rare_chars: ["ә", "ғ", "қ", "ң", "ө", "ұ", "ү", "і", "һ"]
+
+field_candidates:
+  text: ["text", "full_text", "page_text", "target_text", "ocr_text"]
+  image: ["image", "image_path", "path", "file_name", "filename"]
+  zones: ["zones", "regions", "layout", "bboxes", "annotations"]
+  metadata:
+    language: language
+    layout_type: layout_type
+    degradation_profile: degradation_profile
+    doc_type: doc_type

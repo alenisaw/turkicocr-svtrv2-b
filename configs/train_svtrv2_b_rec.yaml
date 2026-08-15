@@ -1,0 +1,68 @@
+run:
+  name: turkicocr_svtrv2_b_rec
+  seed: 42
+  output_dir: ./assets/checkpoints/turkicocr_svtrv2_b_rec
+
+model:
+  family: svtrv2
+  variant: SVTRv2-B
+  backend: openocr
+  model_name: TurkicOCR-SVTRv2-B
+  pretrained: ./assets/models/OpenOCR/SVTRv2-B
+  charset: ./assets/outputs/recognition/charset_turkic_cyrillic.txt
+  replace_classifier_head: true
+
+openocr:
+  root: ./assets/openocr/repo
+  base_config: configs/rec/svtrv2/svtrv2_ch.yml
+
+training:
+  precision: fp16
+  openocr_use_amp: true
+  openocr_cal_metric_during_train: false
+  num_gpus: 4
+  batch_size_per_gpu: 32
+  num_workers: 8
+  max_epochs: 10
+  learning_rate: 0.0003
+  weight_decay: 0.00005
+  warmup_epochs: 1
+  gradient_clip_norm: 5.0
+  max_text_length: 256
+  image_height: 48
+  image_width: 640
+  save_every_epoch: 1
+  eval_every_epoch: 1
+  save_total_limit: 3
+
+data:
+  train_manifest_jsonl: ./assets/outputs/recognition/manifests/train_rec_large.jsonl
+  val_manifest_jsonl: ./assets/outputs/recognition/manifests/val_rec_large.jsonl
+  test_manifest_jsonl: ./assets/outputs/recognition/manifests/test_rec_large.jsonl
+  train_openocr_txt: ./assets/outputs/recognition/manifests/train_openocr.txt
+  val_openocr_txt: ./assets/outputs/recognition/manifests/val_openocr.txt
+  image_root: ./assets/outputs/recognition/images
+  balance_by_language: true
+  balance_rare_chars: true
+  balance_degradation: true
+
+recognition_validation:
+  enabled: true
+  diagnostic_manifest: ./assets/outputs/recognition/manifests/diagnostic_rec_256.jsonl
+  full_manifest: ./assets/outputs/recognition/manifests/diagnostic_rec_full.jsonl
+  save_predictions: true
+  predictions_dir: ./assets/outputs/recognition/predictions
+  metrics_dir: ./assets/outputs/recognition/metrics
+  charset: ./assets/outputs/recognition/charset_turkic_cyrillic.txt
+  batch_size: 64
+  num_workers: 8
+  length_ratio_min: 0.70
+  length_ratio_max: 1.30
+
+checkpoint_selection:
+  monitor_metric: val_rec_cer
+  mode: min
+  patience_evals: 5
+  min_delta: 0.001
+  restore_best_checkpoint: true
+  allow_train_loss_fallback: false

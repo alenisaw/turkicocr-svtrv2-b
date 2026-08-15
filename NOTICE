@@ -1,0 +1,8 @@
+TurkicOCR
+Copyright 2026 Alen Issayev
+
+TurkicOCR-SVTRv2-B is an independent recognizer project based on the SVTRv2-B/OpenOCR training path and adapted for Turkic Cyrillic OCR from zone-grounded document crops.
+
+Training dataset: alenisaw/turkicocr-cyrillic, CC-BY-4.0 license, DOI: 10.57967/hf/9255.
+
+This repository is not affiliated with or endorsed by OpenOCR, PaddleOCR, PaddlePaddle, or their maintainers.

@@ -1,0 +1,1 @@
+{"sample_id":"sample_kz_line_0001","image_path":"data/samples/sample_kz_line_0001.png","text":"Қазақстан Республикасы","language":"kazakh","layout_type":"administrative","degradation_profile":"clean","crop_type":"line","source_page_id":"sample_page_0001","bbox":[12,34,420,76],"region_id":"line_0001","contains_rare_chars":true,"rare_chars":["қ"],"text_length_bucket":"short"}

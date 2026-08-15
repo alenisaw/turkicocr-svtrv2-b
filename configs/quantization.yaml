@@ -1,0 +1,39 @@
+quantization:
+  name: turkicocr_svtrv2_b_int8
+  enabled_after_gate_only: true
+  source_checkpoint: ./assets/checkpoints/turkicocr_svtrv2_b_rec_line_v1/epoch_9.pth
+  source_onnx: ./assets/variants/onnx/turkicocr-svtrv2-b/model.onnx
+  recognition_gate_report: ./assets/outputs/recognition/metrics/turkicocr_svtrv2_b_rec_line_v1/release_epoch9/diagnostic_full/recognition_gate_result.json
+  output_dir: ./assets/variants/int8/turkicocr-svtrv2-b
+  method: dynamic_int8
+  calibration:
+    manifest: ./assets/outputs/recognition/manifests/diagnostic_rec_full_line_only.jsonl
+    max_samples: 256
+    seed: 42
+    balance_keys: ["language", "degradation_profile", "crop_type"]
+
+acceptance:
+  max_absolute_cer_regression: 0.005
+  max_relative_cer_regression: 0.05
+  max_relative_rare_char_cer_regression: 0.08
+  max_empty_prediction_rate_delta: 0.01
+  require_no_charset_regression: true
+
+metrics:
+  - cer
+  - wer
+  - chrf
+  - rare_char_cer
+  - exact_match_short
+  - empty_prediction_rate
+  - latency_ms_per_crop
+  - vram_peak_gb
+  - model_size_mb
+
+package:
+  model_id: alenisaw/turkicocr-svtrv2-b-int8
+  include:
+    - model.int8.onnx
+    - charset_turkic_cyrillic.txt
+    - preprocessor_config.json
+    - README.md

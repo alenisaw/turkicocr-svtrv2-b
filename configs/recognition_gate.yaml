@@ -1,0 +1,13 @@
+recognition_gate:
+  max_cer: 0.10
+  max_rare_char_cer: 0.15
+  min_exact_match_short: 0.80
+  max_empty_rate: 0.05
+  max_too_short_rate: 0.05
+  length_ratio_min: 0.70
+  length_ratio_max: 1.30
+  strong_result_cer: 0.05
+  strong_result_rare_char_cer: 0.08
+  strong_result_chrf: 0.90
+  strong_result_exact_match_short: 0.90
+  smoke_fail_cer: 0.25

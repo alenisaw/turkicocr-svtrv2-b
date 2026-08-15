@@ -1,0 +1,53 @@
+# Local environments
+.venv/
+venv/
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Agent-private planning
+.agent/
+
+# Runtime outputs
+outputs/*
+!outputs/.gitkeep
+metrics/*
+!metrics/.gitkeep
+checkpoints/
+runs/
+wandb/
+mlruns/
+logs/
+test_out/
+external/
+hf_cache/
+.cache/
+
+# Heavy data/model artifacts
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.7z
+*.parquet
+*.safetensors
+*.pdparams
+*.pdopt
+*.gguf
+*.onnx
+*.jsonl
+!data/samples/sample_manifest.jsonl
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

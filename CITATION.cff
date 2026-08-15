@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use TurkicOCR, please cite this paper and repository."
+title: "TurkicOCR-SVTRv2-B: Lightweight Line-Grounded Recognizer for Kazakh and Kyrgyz Optical Character Recognition"
+type: software
+authors:
+  - family-names: Issayev
+    given-names: Alen
+  - family-names: Zhalgas
+    given-names: Aidana
+repository-code: "https://github.com/alenisaw/turkicocr-svtrv2-b"
+license: Apache-2.0
+version: 0.2.0
+abstract: "A reproducible repository for adapting an SVTRv2-B/OpenOCR recognizer to Kazakh, Kyrgyz, Russian, and mixed Turkic Cyrillic crop-level OCR."
+keywords:
+  - OCR
+  - text recognition
+  - OpenOCR
+  - SVTRv2
+  - Kazakh
+  - Kyrgyz
+  - Turkic Cyrillic
+preferred-citation:
+  type: conference-paper
+  title: "TurkicOCR-SVTRv2-B: Lightweight Line-Grounded Recognizer for Kazakh and Kyrgyz Optical Character Recognition"
+  authors:
+    - family-names: Issayev
+      given-names: Alen
+    - family-names: Zhalgas
+      given-names: Aidana
+  collection-title: "Analysis of Images, Social Networks and Texts (AIST 2026)"
+  publisher:
+    name: "Springer"
+  series: "Lecture Notes in Computer Science (LNCS)"
+  year: 2026
+  doi: "10.1007/978-3-031-XXXXX-X_XX"
+references:
+  - type: dataset
+    title: "turkicocr-cyrillic"
+    authors:
+      - family-names: Issayev
+        given-names: Alen
+    doi: "10.57967/hf/9255"
+    url: "https://huggingface.co/datasets/alenisaw/turkicocr-cyrillic"

@@ -1,0 +1,24 @@
+export:
+  name: turkicocr_svtrv2_b_onnx
+  enabled_after_gate_only: true
+  source_checkpoint: ./assets/checkpoints/turkicocr_svtrv2_b_rec_line_v1/epoch_9.pth
+  recognition_gate_report: ./assets/outputs/recognition/metrics/turkicocr_svtrv2_b_rec_line_v1/release_epoch9/diagnostic_full/recognition_gate_result.json
+  output_dir: ./assets/variants/onnx/turkicocr-svtrv2-b
+  opset: 18
+  dynamic_axes:
+    batch: true
+    width: true
+  precision: fp32
+  validation_manifest: ./assets/outputs/recognition/manifests/diagnostic_rec_full_line_only.jsonl
+  acceptance:
+    max_absolute_cer_regression: 0.002
+    max_relative_latency_regression: 0.10
+    require_same_charset: true
+
+package:
+  model_id: alenisaw/turkicocr-svtrv2-b-onnx
+  include:
+    - model.onnx
+    - charset_turkic_cyrillic.txt
+    - preprocessor_config.json
+    - README.md

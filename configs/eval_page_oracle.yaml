@@ -1,0 +1,21 @@
+evaluation:
+  name: turkicocr_svtrv2_b_oracle_zone_page_eval
+  recognizer_backend: openocr_svtrv2
+  checkpoint: ./assets/checkpoints/turkicocr_svtrv2_b_rec_line_v1/best.pth
+  dataset: alenisaw/turkicocr-cyrillic
+  pages_manifest: ./assets/outputs/recognition/manifests/test_pages_large.jsonl
+  zones_manifest: ./assets/outputs/recognition/manifests/test_zones_large.jsonl
+  predictions_dir: ./assets/outputs/page_eval/oracle_zones/predictions
+  output_dir: ./assets/outputs/turkicocr_benchmark_clean/metrics/page_oracle
+  reconstruction:
+    sort_order: geometric_top_to_bottom_left_to_right
+    join_lines_with: "\n"
+    join_zones_with: "\n\n"
+  metrics:
+    - page_cer
+    - page_wer
+    - page_chrf
+    - page_exact_match
+    - rare_char_cer
+    - zone_failure_rate
+  note: "Page-level OCR is a reconstruction view; crop recognition remains the primary training target."

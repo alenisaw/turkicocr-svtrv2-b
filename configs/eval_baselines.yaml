@@ -1,0 +1,53 @@
+evaluation:
+  name: turkicocr_baseline_panel
+  manifest: ./assets/outputs/recognition/manifests/diagnostic_rec_full_line_only.jsonl
+  output_dir: ./assets/outputs/baselines
+  cache_dir: ./assets/huggingface
+  predictions_dir: ./assets/outputs/baselines/predictions
+  metrics_dir: ./assets/outputs/baselines/metrics
+  normalize_text: true
+  compute_breakdowns: true
+  rare_chars: ["ә", "ғ", "қ", "ң", "ө", "ұ", "ү", "і", "һ"]
+
+models:
+  # Ordered fast -> slow (CTC/classical recognizers first, autoregressive
+  # transformer decoders last) so quicker results land early in a run.
+  - id: turkicocr_svtrv2_b_rec
+    display_name: TurkicOCR-SVTRv2-B (Torch)
+    role: main_model
+    type: openocr_svtrv2
+    checkpoint: ./assets/checkpoints/turkicocr_svtrv2_b_rec_line_v1
+  - id: tesseract
+    display_name: Tesseract OCR
+    role: classical_ocr
+    type: tesseract
+    languages: ["kaz", "rus", "kir"]
+  - id: ppocr
+    display_name: PP-OCR / PaddleOCR
+    role: classical_pipeline
+    type: ppocr
+  # turkicocr_svtrv2_b_onnx (ONNX FP32) intentionally excluded from the
+  # detected-page benchmark: numerically near-identical to Torch (see
+  # metrics/deployment/export_validation.json's diagnostic-level parity
+  # check), so it doesn't need its own full detected-page rerun. Torch is
+  # the quality reference; INT8 is the deployment variant that matters.
+  - id: turkicocr_svtrv2_b_int8
+    display_name: TurkicOCR-SVTRv2-B (ONNX INT8)
+    role: quantized_model_int8
+    type: openocr_onnx
+    checkpoint: ./assets/variants/int8/turkicocr-svtrv2-b/model.int8.onnx
+  - id: kazakh_trocr
+    display_name: Kazakh TrOCR
+    role: kazakh_specific_ocr
+    type: transformers_vision_encoder_decoder
+    checkpoint: ./assets/models/thekamilya/kazakh-trocr-fine-tuned
+  - id: russian_cyrillic_trocr
+    display_name: Russian/Cyrillic TrOCR
+    role: cyrillic_ocr
+    type: transformers_vision_encoder_decoder
+    checkpoint: ./assets/models/kazars24/trocr-base-handwritten-ru
+  - id: cyrillic_htr
+    display_name: Cyrillic HTR
+    role: htr_transfer_check
+    type: transformers_vision_encoder_decoder
+    checkpoint: ./assets/models/Kansallisarkisto/cyrillic-htr-model

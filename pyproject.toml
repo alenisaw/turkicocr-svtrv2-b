@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "turkicocr"
+version = "0.2.0"
+description = "Cyrillic document OCR toolkit for Turkic languages."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Alen Issayev" }]
+keywords = ["ocr", "openocr", "kazakh", "kyrgyz", "document-ai"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent"
+]
+
+dependencies = [
+  "datasets>=3.0.0",
+  "huggingface_hub>=0.25.0",
+  "hf_transfer>=0.1.8",
+  "pandas>=2.2.0",
+  "numpy>=1.26.0",
+  "pillow>=10.0.0",
+  "opencv-python>=4.9.0",
+  "rapidfuzz>=3.9.0",
+  "jiwer>=3.0.0",
+  "scikit-learn>=1.5.0",
+  "matplotlib>=3.8.0",
+  "pyyaml>=6.0.0",
+  "tqdm>=4.66.0",
+  "rich>=13.7.0",
+  "wandb>=0.17.0",
+  "torch>=2.3.0",
+  "transformers>=4.56.0",
+  "safetensors>=0.5.0"
+]
+
+[project.optional-dependencies]
+paddle = ["paddleocr[doc-parser]>=3.6.0"]
+baselines = ["torch>=2.3.0", "transformers>=4.56.0", "accelerate>=0.34.0", "pytesseract>=0.3.13"]
+inference = [
+  "paddleocr[doc-parser]>=3.6.0",
+  "torch>=2.3.0",
+  "transformers>=4.56.0",
+  "accelerate>=0.34.0",
+  "safetensors>=0.5.0",
+  "bitsandbytes>=0.45.0",
+  "pytesseract>=0.3.13"
+]
+dev = ["pytest>=8.0.0", "ruff>=0.6.0"]
+
+[tool.setuptools.packages.find]
+include = ["turkicocr*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+

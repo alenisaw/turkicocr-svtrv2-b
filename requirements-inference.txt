@@ -1,0 +1,22 @@
+# Optional inference backends. Install after GPU driver/user-space libraries are healthy.
+#
+# PaddleOCR baseline/runtime path:
+#   python -m pip install paddlepaddle-gpu==3.2.1 -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
+#   python -m pip install -r requirements-inference.txt
+#
+# System OCR baseline still needs the tesseract binary and traineddata packages.
+paddleocr[doc-parser]>=3.6.0
+paddlex[ocr]>=3.7.2
+torch>=2.3.0
+onnx>=1.16.0,<2
+onnxruntime>=1.18.0,<2
+onnxscript>=0.1.0
+transformers>=4.56.0
+accelerate>=0.34.0
+safetensors>=0.5.0
+bitsandbytes>=0.45.0
+pytesseract>=0.3.13
+hf-transfer>=0.1.8
+jiwer>=3.0.0
+scikit-learn>=1.5.0
+wandb>=0.17.0

@@ -1,0 +1,37 @@
+evaluation:
+  name: turkicocr_svtrv2_b_recognition_eval
+  backend: openocr_svtrv2
+  checkpoint: ./assets/checkpoints/turkicocr_svtrv2_b_rec/best
+  manifest: ./assets/outputs/recognition/manifests/test_rec_large.jsonl
+  diagnostic_manifest: ./assets/outputs/recognition/manifests/diagnostic_rec_full.jsonl
+  predictions: ./assets/outputs/recognition/predictions/test_svtrv2_b.jsonl
+  output_dir: ./assets/outputs/recognition/metrics/turkicocr_svtrv2_b
+  charset_path: ./assets/outputs/recognition/charset_turkic_cyrillic.txt
+  normalize_text: true
+  compute_breakdowns: true
+  num_workers: 16
+  devices: auto
+  batch_size: 256
+  rare_chars: ["ә", "ғ", "қ", "ң", "ө", "ұ", "ү", "і", "һ"]
+
+metrics:
+  aggregate:
+    - val_rec_count
+    - val_rec_cer
+    - val_rec_wer
+    - val_rec_chrf
+    - val_rec_rare_char_cer
+    - val_rec_exact_match
+    - val_rec_exact_match_short
+    - val_rec_length_ratio
+    - val_rec_empty_prediction_rate
+    - val_rec_too_short_rate
+    - val_rec_too_long_rate
+    - val_rec_latency_ms_per_crop
+  slices:
+    - language
+    - layout_type
+    - degradation_profile
+    - crop_type
+    - text_length_bucket
+    - rare_char_group
