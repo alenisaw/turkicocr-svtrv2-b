@@ -10,6 +10,8 @@
 
 <p align="center">
   <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://doi.org/10.1007/978-3-032-41546-2_22"><img src="https://img.shields.io/badge/Paper%20DOI-10.1007%2F978--3--032--41546--2__22-blue.svg" alt="Paper DOI"></a>
+  <a href="https://doi.org/10.57967/hf/9255"><img src="https://img.shields.io/badge/Dataset%20DOI-10.57967%2Fhf%2F9255-green.svg" alt="Dataset DOI"></a>
   <a href="https://huggingface.co/alenisaw/turkicocr-svtrv2-b"><img src="https://img.shields.io/badge/Hugging%20Face-Models-orange.svg" alt="Hugging Face Models"></a>
   <a href="https://huggingface.co/datasets/alenisaw/turkicocr-cyrillic"><img src="https://img.shields.io/badge/Hugging%20Face-Dataset-green.svg" alt="Hugging Face Dataset"></a>
   <a href="https://github.com/alenisaw/turkicocr-svtrv2-b"><img src="https://img.shields.io/badge/Model-SVTRv2--B-red.svg" alt="Model Size"></a>
@@ -199,9 +201,10 @@ If you use this model, dataset, or pipeline in your research, please cite:
   author={Issayev, Alen and Zhalgas, Aidana},
   booktitle={Analysis of Images, Social Networks and Texts (AIST 2026)},
   series={Lecture Notes in Computer Science (LNCS)},
-  publisher={Springer},
+  pages={342--358},
+  publisher={Springer Nature Switzerland},
   year={2026},
-  doi={10.1007/978-3-031-XXXXX-X_XX}
+  doi={10.1007/978-3-032-41546-2_22}
 }
 
 @misc{issayev2026turkicocrcyrillic,

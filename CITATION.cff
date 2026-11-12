@@ -25,14 +25,18 @@ preferred-citation:
   authors:
     - family-names: Issayev
       given-names: Alen
+      orcid: "https://orcid.org/0009-0006-5185-0250"
     - family-names: Zhalgas
       given-names: Aidana
+      orcid: "https://orcid.org/0000-0003-1091-8483"
   collection-title: "Analysis of Images, Social Networks and Texts (AIST 2026)"
   publisher:
-    name: "Springer"
+    name: "Springer Nature Switzerland"
   series: "Lecture Notes in Computer Science (LNCS)"
+  start: 342
+  end: 358
   year: 2026
-  doi: "10.1007/978-3-031-XXXXX-X_XX"
+  doi: "10.1007/978-3-032-41546-2_22"
 references:
   - type: dataset
     title: "turkicocr-cyrillic"
